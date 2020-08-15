@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>学生信息管理系统</title>
+		<link rel="stylesheet" href="../statics/css/admin/index.css">
+		<script src="../statics/js/jquery-3.4.1.js"></script>
+		<script src="../statics/layui/layui.js" charset="utf-8"></script>
+		<script src="../statics/js/admin/admin.js"></script>
+	</head>
+	<body>
+		<div id="header">
+			<h1>学生信息管理系统</h1>
+		</div>
+
+		<div id="nav"> 
+			<a href="/login">登录页面</a>
+			<a href="/admin/home">主页</a> 
+			<a href="/admin/index">学生信息管理</a> 
+		</div>
+
+		<div id="content">
+			<div class="row3">
+				<div class="row4">
+					<form action="/admin/search" method="post">
+						学号:<input type="text" name="id" id="id" style="height:30px">
+						<input type="submit"  value="查询" style="height:30px;">
+					</form>
+				</div>
+				<div class="row4">
+					<button type="button" onclick="add()" style="height:30px;width:100px">添加</button>
+				</div>
+			</div>
+  			<div class="row2">
+    			<table id="tab" border="1" cellspacing="0" cellpadding="0">
+					<tr>
+						<tr>
+							<th>学号</th>
+				 			<th>姓名</th>
+			     			<th>专业</th>
+                 			<th>性别</th>
+                 			<th>出生日期</th>
+                 			<th>分数</th>
+							<th>操作</th>
+							<th>操作</th>
+						{{range $value := .data}}
+						<tr>
+							<td>{{ $value.ID }}</td>
+							<td>{{ $value.Name }}</td>
+							<td>{{ $value.Major }}</td>
+							<td>{{ $value.Sex }}</td>
+							<td>{{ $value.Birthday }}</td>
+							<td>{{ $value.Socre }}</td>
+							<td style="width:50px"><button style="width:50px;height:60px;border:none;background-color:#d8c7a0"type="button" value="{{$value.ID}}" id="del" onclick="deletes()">删除</button></td>
+							<td style="width:50px"><button style="width:50px;height:60px;border:none;background-color:#d8c7a0" type="button"  id="pre" onclick="edit({{$value.ID}})">修改</button></td>
+						</tr>
+						{{end}}
+					</tr>
+				</table>
+  		</div>
+  			<div class="row1">
+  				<input type="hidden" name="counts" value="{{.counts}}" id="pages">
+				<button type="button" value="{{.page}}" id="prev" onclick="prevpage()">上一页</button>
+  				<button type="button" value="{{.page}}" id="next" onclick="nextpage()">下一页</button>
+				<p>共{{.counts}}页</p>
+  			</div>
+		</div>
+
+		<div id="footer">
+  			<p>学生信息管理系统</p>
+		</div>
+	</body>
+</html>
